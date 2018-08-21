@@ -721,6 +721,60 @@ public actual fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
     return withType("CharArray", this.asDynamic().slice(fromIndex, toIndex))
 }
 
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun <T> Array<T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T> {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun ShortArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ShortArray, destinationIndex: Int = 0): ShortArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun IntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: IntArray, destinationIndex: Int = 0): IntArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun LongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: LongArray, destinationIndex: Int = 0): LongArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun FloatArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: FloatArray, destinationIndex: Int = 0): FloatArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun DoubleArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: DoubleArray, destinationIndex: Int = 0): DoubleArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun BooleanArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: BooleanArray, destinationIndex: Int = 0): BooleanArray {
+    TODO()
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun CharArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: CharArray, destinationIndex: Int = 0): CharArray {
+    TODO()
+}
+
 /**
  * Returns an array containing all elements of the original array and then the given [element].
  */

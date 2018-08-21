@@ -465,6 +465,48 @@ object ArrayOps : TemplateGroupBase() {
         }
     }
 
+    val f_copyInto = fn("copyInto(destination: SELF, destinationIndex: Int = 0)") {
+        include(InvariantArraysOfObjects, ArraysOfPrimitives, ArraysOfUnsigned)
+    } builder {
+        since("1.3")
+        returns("SELF")
+        inlineOnly()
+        body {
+            "return copyRangeInto(0, size, destination, destinationIndex)"
+        }
+    }
+
+    val f_copyRangeInto = fn("copyRangeInto(startIndex: Int, endIndex: Int, destination: SELF, destinationIndex: Int = 0)") {
+        include(InvariantArraysOfObjects, ArraysOfPrimitives, ArraysOfUnsigned)
+    } builder {
+        since("1.3")
+        returns("SELF")
+
+        specialFor(ArraysOfUnsigned) {
+            inlineOnly()
+            body {
+                "return SELF(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))"
+            }
+        }
+        specialFor(ArraysOfPrimitives, InvariantArraysOfObjects) {
+            on(Platform.JVM) {
+                suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+                body {
+                    """
+                    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+                    return destination
+                    """
+                }
+            }
+            on(Platform.JS) {
+                suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+                body {
+                    "TODO()"
+                }
+            }
+        }
+    }
+
     val f_copyOfRangeJvmImpl = fn("copyOfRangeImpl(fromIndex: Int, toIndex: Int)") {
         include(InvariantArraysOfObjects, ArraysOfPrimitives)
         platforms(Platform.JVM)

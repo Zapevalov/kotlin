@@ -1038,6 +1038,69 @@ internal fun CharArray.copyOfRangeImpl(fromIndex: Int, toIndex: Int): CharArray 
     return java.util.Arrays.copyOfRange(this, fromIndex, toIndex)
 }
 
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun <T> Array<T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T> {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun ShortArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ShortArray, destinationIndex: Int = 0): ShortArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun IntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: IntArray, destinationIndex: Int = 0): IntArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun LongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: LongArray, destinationIndex: Int = 0): LongArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun FloatArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: FloatArray, destinationIndex: Int = 0): FloatArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun DoubleArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: DoubleArray, destinationIndex: Int = 0): DoubleArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun BooleanArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: BooleanArray, destinationIndex: Int = 0): BooleanArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
+@SinceKotlin("1.3")
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+public actual fun CharArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: CharArray, destinationIndex: Int = 0): CharArray {
+    System.arraycopy(this, startIndex, destination, destinationIndex, endIndex - startIndex)
+    return destination
+}
+
 /**
  * Fills original array with the provided value.
  */
