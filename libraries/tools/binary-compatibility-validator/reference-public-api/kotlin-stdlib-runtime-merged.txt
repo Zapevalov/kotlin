@@ -1007,6 +1007,24 @@ public final class kotlin/collections/ArraysKt {
 	public static final fun copyOfRange ([Ljava/lang/Object;II)[Ljava/lang/Object;
 	public static final fun copyOfRange ([SII)[S
 	public static final fun copyOfRange ([ZII)[Z
+	public static final fun copyRangeInto ([B[BIII)[B
+	public static final fun copyRangeInto ([C[CIII)[C
+	public static final fun copyRangeInto ([D[DIII)[D
+	public static final fun copyRangeInto ([F[FIII)[F
+	public static final fun copyRangeInto ([I[IIII)[I
+	public static final fun copyRangeInto ([J[JIII)[J
+	public static final fun copyRangeInto ([Ljava/lang/Object;[Ljava/lang/Object;III)[Ljava/lang/Object;
+	public static final fun copyRangeInto ([S[SIII)[S
+	public static final fun copyRangeInto ([Z[ZIII)[Z
+	public static synthetic fun copyRangeInto$default ([B[BIIIILjava/lang/Object;)[B
+	public static synthetic fun copyRangeInto$default ([C[CIIIILjava/lang/Object;)[C
+	public static synthetic fun copyRangeInto$default ([D[DIIIILjava/lang/Object;)[D
+	public static synthetic fun copyRangeInto$default ([F[FIIIILjava/lang/Object;)[F
+	public static synthetic fun copyRangeInto$default ([I[IIIIILjava/lang/Object;)[I
+	public static synthetic fun copyRangeInto$default ([J[JIIIILjava/lang/Object;)[J
+	public static synthetic fun copyRangeInto$default ([Ljava/lang/Object;[Ljava/lang/Object;IIIILjava/lang/Object;)[Ljava/lang/Object;
+	public static synthetic fun copyRangeInto$default ([S[SIIIILjava/lang/Object;)[S
+	public static synthetic fun copyRangeInto$default ([Z[ZIIIILjava/lang/Object;)[Z
 	public static final fun count ([BLkotlin/jvm/functions/Function1;)I
 	public static final fun count ([CLkotlin/jvm/functions/Function1;)I
 	public static final fun count ([DLkotlin/jvm/functions/Function1;)I
@@ -4448,7 +4466,6 @@ public final class kotlin/sequences/SequencesKt {
 	public static final fun groupByTo (Lkotlin/sequences/Sequence;Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Ljava/util/Map;
 	public static final fun groupByTo (Lkotlin/sequences/Sequence;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/util/Map;
 	public static final fun groupingBy (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Lkotlin/collections/Grouping;
-	public static final fun ifEmpty (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function0;)Lkotlin/sequences/Sequence;
 	public static final fun indexOf (Lkotlin/sequences/Sequence;Ljava/lang/Object;)I
 	public static final fun indexOfFirst (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)I
 	public static final fun indexOfLast (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)I
