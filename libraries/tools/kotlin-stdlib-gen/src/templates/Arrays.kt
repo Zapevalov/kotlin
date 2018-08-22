@@ -475,11 +475,11 @@ object ArrayOps : TemplateGroupBase() {
             receiver("Array<out T>")
         }
         body {
-            "return copyRangeInto(0, size, destination, destinationIndex)"
+            "return copyRangeInto(destination, destinationIndex, 0, size)"
         }
     }
 
-    val f_copyRangeInto = fn("copyRangeInto(startIndex: Int, endIndex: Int, destination: SELF, destinationIndex: Int = 0)") {
+    val f_copyRangeInto = fn("copyRangeInto(destination: SELF, destinationIndex: Int = 0, startIndex: Int, endIndex: Int)") {
         include(InvariantArraysOfObjects, ArraysOfPrimitives, ArraysOfUnsigned)
     } builder {
         since("1.3")
@@ -488,7 +488,7 @@ object ArrayOps : TemplateGroupBase() {
         specialFor(ArraysOfUnsigned) {
             inlineOnly()
             body {
-                "return SELF(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))"
+                "return SELF(storage.copyRangeInto(destination.storage, destinationIndex, startIndex, endIndex))"
             }
         }
         specialFor(ArraysOfPrimitives, InvariantArraysOfObjects) {

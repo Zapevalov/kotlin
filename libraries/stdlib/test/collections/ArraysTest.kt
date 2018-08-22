@@ -793,30 +793,30 @@ class ArraysTest {
 
     @Test fun copyRangeInto() {
         fun <T> doTest(
-            copyRangeInto: T.(Int, Int, T, Int) -> T,
+            copyRangeInto: T.(T, Int, Int, Int) -> T,
             assertTEquals: (T, T, String) -> Unit,
             toStringT: T.() -> String,
             dest: T, newValues: T,
             result1: T, result2: T, result3: T
         ) {
-            newValues.copyRangeInto(1, 3, dest, 0)
+            newValues.copyRangeInto(dest, 0, 1, 3)
             assertTypeEquals(result1, dest)
             assertTEquals(result1, dest, "Copying from newValues: ${result1.toStringT()}, ${dest.toStringT()}")
 
-            dest.copyRangeInto(1, 3, dest, 0)
+            dest.copyRangeInto(dest, 0, 1, 3)
             assertTEquals(result2, dest, "Overlapping backward copy: ${result2.toStringT()}, ${dest.toStringT()}")
 
-            dest.copyRangeInto(0, 2, dest, 1)
+            dest.copyRangeInto(dest, 1, 0, 2)
             assertTEquals(result3, dest, "Overlapping forward copy: ${result2.toStringT()}, ${dest.toStringT()}")
 
             for ((start, end) in listOf(-1 to 0, 0 to 4, 4 to 4, 1 to 0)) {
                 val bounds = "start: $start, end: $end"
 //                val exClass = if (start > end) IllegalArgumentException::class else IndexOutOfBoundsException::class
                 val exClass = RuntimeException::class
-                assertFailsWith(exClass, bounds) { newValues.copyRangeInto(start, end, dest, 0) }
+                assertFailsWith(exClass, bounds) { newValues.copyRangeInto(dest, 0, start, end) }
             }
             for (destIndex in listOf(-1, 2, 4)) {
-                assertFailsWith<IndexOutOfBoundsException>("index: $destIndex") { newValues.copyRangeInto(0, 2, dest, destIndex) }
+                assertFailsWith<IndexOutOfBoundsException>("index: $destIndex") { newValues.copyRangeInto(dest, destIndex, 0, 2) }
             }
         }
 
@@ -875,13 +875,13 @@ class ArraysTest {
         val targetNumberArr: Array<Number> = Array<Number>(3) { 0.0 }
         val targetArrProjection: Array<in Number> = targetNumberArr
 
-        val r1 = sourceArr.copyRangeInto(0, sourceArr.size, targetAnyArr)
+        val r1 = sourceArr.copyRangeInto(targetAnyArr, 0, 0, sourceArr.size)
         assertStaticTypeIs<Array<Any?>>(r1)
 
-        val r2 = sourceArr.copyRangeInto(0, sourceArr.size, targetNumberArr)
+        val r2 = sourceArr.copyRangeInto(targetNumberArr, 0, 0, sourceArr.size)
         assertStaticTypeIs<Array<Number>>(r2)
 
-        val r3 = sourceArr.copyRangeInto(0, sourceArr.size, targetArrProjection)
+        val r3 = sourceArr.copyRangeInto(targetArrProjection, 0, 0, sourceArr.size)
         assertStaticTypeIs<Array<in Number>>(r3)
 
         val c1 = sourceArr.copyInto(targetAnyArr)

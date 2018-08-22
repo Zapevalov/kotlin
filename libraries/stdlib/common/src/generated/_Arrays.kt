@@ -5575,55 +5575,55 @@ public expect fun CharArray.contentToString(): String
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun <T> Array<out T>.copyInto(destination: Array<T>, destinationIndex: Int = 0): Array<T> {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun ByteArray.copyInto(destination: ByteArray, destinationIndex: Int = 0): ByteArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun ShortArray.copyInto(destination: ShortArray, destinationIndex: Int = 0): ShortArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun IntArray.copyInto(destination: IntArray, destinationIndex: Int = 0): IntArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun LongArray.copyInto(destination: LongArray, destinationIndex: Int = 0): LongArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun FloatArray.copyInto(destination: FloatArray, destinationIndex: Int = 0): FloatArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun DoubleArray.copyInto(destination: DoubleArray, destinationIndex: Int = 0): DoubleArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun BooleanArray.copyInto(destination: BooleanArray, destinationIndex: Int = 0): BooleanArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
 public inline fun CharArray.copyInto(destination: CharArray, destinationIndex: Int = 0): CharArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 /**
@@ -5864,31 +5864,31 @@ public expect fun BooleanArray.copyOfRange(fromIndex: Int, toIndex: Int): Boolea
 public expect fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
 
 @SinceKotlin("1.3")
-public expect fun <T> Array<out T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T>
+public expect fun <T> Array<out T>.copyRangeInto(destination: Array<T>, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): Array<T>
 
 @SinceKotlin("1.3")
-public expect fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray
+public expect fun ByteArray.copyRangeInto(destination: ByteArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): ByteArray
 
 @SinceKotlin("1.3")
-public expect fun ShortArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ShortArray, destinationIndex: Int = 0): ShortArray
+public expect fun ShortArray.copyRangeInto(destination: ShortArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): ShortArray
 
 @SinceKotlin("1.3")
-public expect fun IntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: IntArray, destinationIndex: Int = 0): IntArray
+public expect fun IntArray.copyRangeInto(destination: IntArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): IntArray
 
 @SinceKotlin("1.3")
-public expect fun LongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: LongArray, destinationIndex: Int = 0): LongArray
+public expect fun LongArray.copyRangeInto(destination: LongArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): LongArray
 
 @SinceKotlin("1.3")
-public expect fun FloatArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: FloatArray, destinationIndex: Int = 0): FloatArray
+public expect fun FloatArray.copyRangeInto(destination: FloatArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): FloatArray
 
 @SinceKotlin("1.3")
-public expect fun DoubleArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: DoubleArray, destinationIndex: Int = 0): DoubleArray
+public expect fun DoubleArray.copyRangeInto(destination: DoubleArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): DoubleArray
 
 @SinceKotlin("1.3")
-public expect fun BooleanArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: BooleanArray, destinationIndex: Int = 0): BooleanArray
+public expect fun BooleanArray.copyRangeInto(destination: BooleanArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): BooleanArray
 
 @SinceKotlin("1.3")
-public expect fun CharArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: CharArray, destinationIndex: Int = 0): CharArray
+public expect fun CharArray.copyRangeInto(destination: CharArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): CharArray
 
 /**
  * Returns the range of valid indices for the array.

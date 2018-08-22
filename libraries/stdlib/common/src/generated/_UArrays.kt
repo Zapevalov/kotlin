@@ -229,28 +229,28 @@ public fun UShortArray.contentToString(): String {
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
 public inline fun UIntArray.copyInto(destination: UIntArray, destinationIndex: Int = 0): UIntArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
 public inline fun ULongArray.copyInto(destination: ULongArray, destinationIndex: Int = 0): ULongArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
 public inline fun UByteArray.copyInto(destination: UByteArray, destinationIndex: Int = 0): UByteArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
 public inline fun UShortArray.copyInto(destination: UShortArray, destinationIndex: Int = 0): UShortArray {
-    return copyRangeInto(0, size, destination, destinationIndex)
+    return copyRangeInto(destination, destinationIndex, 0, size)
 }
 
 /**
@@ -412,29 +412,29 @@ public inline fun UShortArray.copyOfRange(fromIndex: Int, toIndex: Int): UShortA
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
-public inline fun UIntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: UIntArray, destinationIndex: Int = 0): UIntArray {
-    return UIntArray(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))
+public inline fun UIntArray.copyRangeInto(destination: UIntArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): UIntArray {
+    return UIntArray(storage.copyRangeInto(destination.storage, destinationIndex, startIndex, endIndex))
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
-public inline fun ULongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ULongArray, destinationIndex: Int = 0): ULongArray {
-    return ULongArray(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))
+public inline fun ULongArray.copyRangeInto(destination: ULongArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): ULongArray {
+    return ULongArray(storage.copyRangeInto(destination.storage, destinationIndex, startIndex, endIndex))
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
-public inline fun UByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: UByteArray, destinationIndex: Int = 0): UByteArray {
-    return UByteArray(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))
+public inline fun UByteArray.copyRangeInto(destination: UByteArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): UByteArray {
+    return UByteArray(storage.copyRangeInto(destination.storage, destinationIndex, startIndex, endIndex))
 }
 
 @SinceKotlin("1.3")
 @ExperimentalUnsignedTypes
 @kotlin.internal.InlineOnly
-public inline fun UShortArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: UShortArray, destinationIndex: Int = 0): UShortArray {
-    return UShortArray(storage.copyRangeInto(startIndex, endIndex, destination.storage, destinationIndex))
+public inline fun UShortArray.copyRangeInto(destination: UShortArray, destinationIndex: Int = 0, startIndex: Int, endIndex: Int): UShortArray {
+    return UShortArray(storage.copyRangeInto(destination.storage, destinationIndex, startIndex, endIndex))
 }
 
 /**
