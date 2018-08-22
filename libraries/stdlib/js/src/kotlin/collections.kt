@@ -126,6 +126,8 @@ internal actual fun <T> arrayOfNulls(reference: Array<T>, size: Int): Array<T> {
     return arrayOfNulls<Any>(size).unsafeCast<Array<T>>()
 }
 
+@PublishedApi
+@SinceKotlin("1.3")
 internal fun <T> arrayCopy(source: Array<out T>, destination: Array<in T>, destinationIndex: Int, startIndex: Int, endIndex: Int) {
     AbstractList.checkRangeIndexes(startIndex, endIndex, source.size)
     val rangeSize = endIndex - startIndex

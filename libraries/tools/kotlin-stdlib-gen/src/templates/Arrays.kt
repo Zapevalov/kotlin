@@ -506,8 +506,9 @@ object ArrayOps : TemplateGroupBase() {
             }
             on(Platform.JS) {
                 suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
-                val cast = ".unsafeCast<Array<$primitive>>()".takeIf { family == ArraysOfPrimitives } ?: ""
+                inlineOnly()
                 body {
+                    val cast = ".unsafeCast<Array<$primitive>>()".takeIf { family == ArraysOfPrimitives } ?: ""
                     """
                     arrayCopy(this$cast, destination$cast, destinationIndex, startIndex, endIndex)
                     return destination
