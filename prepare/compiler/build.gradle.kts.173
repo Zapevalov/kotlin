@@ -1,9 +1,14 @@
 import java.io.File
 import proguard.gradle.ProGuardTask
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.api.artifacts.maven.Conf2ScopeMappingContainer.COMPILE
 import org.gradle.api.file.DuplicatesStrategy
 
 description = "Kotlin Compiler"
+
+plugins {
+    maven
+}
 
 // You can run Gradle with "-Pkotlin.build.proguard=true" to enable ProGuard run on kotlin-compiler.jar (on TeamCity, ProGuard always runs)
 val shrink =
@@ -17,13 +22,18 @@ val fatJarContents by configurations.creating
 val fatJarContentsStripMetadata by configurations.creating
 val fatJarContentsStripServices by configurations.creating
 val fatSourcesJarContents by configurations.creating
-val proguardLibraryJars by configurations.creating
 val fatJar by configurations.creating
 val compilerJar by configurations.creating
 val runtimeJar by configurations.creating
-val default by configurations.creating {
-    extendsFrom(runtimeJar)
+
+val compile by configurations.creating {
+    the<MavenPluginConvention>()
+        .conf2ScopeMappings
+        .addMapping(0, this, COMPILE)
 }
+
+val default by configurations
+default.extendsFrom(runtimeJar)
 
 val compilerBaseName = name
 
@@ -38,6 +48,12 @@ val compiledModulesSources = compilerModules.map {
 }
 
 dependencies {
+    // Maven plugin generates pom compile dependencies from compile configuration
+    compile(project(":kotlin-stdlib"))
+    compile(project(":kotlin-script-runtime"))
+    compile(project(":kotlin-reflect"))
+    compile(project(":kotlin-annotations-jvm"))
+
     compilerModules.forEach {
         fatJarContents(project(it)) { isTransitive = false }
     }
@@ -54,21 +70,6 @@ dependencies {
     fatJarContents(commonDep("com.google.code.findbugs", "jsr305"))
     fatJarContents(commonDep("io.javaslang", "javaslang"))
     fatJarContents(commonDep("org.jetbrains.kotlinx", "kotlinx-coroutines-core")) { isTransitive = false }
-
-    proguardLibraryJars(
-        files(
-            firstFromJavaHomeThatExists("jre/lib/rt.jar", "../Classes/classes.jar"),
-            firstFromJavaHomeThatExists("jre/lib/jsse.jar", "../Classes/jsse.jar"),
-            toolsJar()
-        )
-    )
-
-    proguardLibraryJars(project(":kotlin-stdlib"))
-    proguardLibraryJars(project(":kotlin-script-runtime"))
-    proguardLibraryJars(project(":kotlin-reflect"))
-    proguardLibraryJars(project(":kotlin-annotations-jvm"))
-    proguardLibraryJars(project(":kotlin-scripting-common"))
-    proguardLibraryJars(project(":kotlin-scripting-jvm"))
 
     fatJarContents(intellijCoreDep()) { includeJars("intellij-core") }
     fatJarContents(intellijDep()) { includeIntellijCoreJarDependencies(project, { !(it.startsWith("jdom") || it.startsWith("log4j")) }) }
@@ -110,7 +111,16 @@ val proguard by task<ProGuardTask> {
         System.setProperty("kotlin-compiler-jar", outputJar.canonicalPath)
     }
 
-    libraryjars(mapOf("filter" to "!META-INF/versions/**"), proguardLibraryJars)
+    libraryjars(mapOf("filter" to "!META-INF/versions/**"), compile)
+    libraryjars(
+        mapOf("filter" to "!META-INF/versions/**"),
+        files(
+            firstFromJavaHomeThatExists("jre/lib/rt.jar", "../Classes/classes.jar"),
+            firstFromJavaHomeThatExists("jre/lib/jsse.jar", "../Classes/jsse.jar"),
+            toolsJar()
+        )
+    )
+
     printconfiguration("$buildDir/compiler.pro.dump")
 }
 
