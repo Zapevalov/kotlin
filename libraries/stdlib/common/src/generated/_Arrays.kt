@@ -5864,7 +5864,7 @@ public expect fun BooleanArray.copyOfRange(fromIndex: Int, toIndex: Int): Boolea
 public expect fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
 
 @SinceKotlin("1.3")
-public expect fun <T> Array<T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T>
+public expect fun <T> Array<out T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<in T>, destinationIndex: Int = 0): Array<T>
 
 @SinceKotlin("1.3")
 public expect fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray

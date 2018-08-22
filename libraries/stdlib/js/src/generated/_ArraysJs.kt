@@ -724,7 +724,16 @@ public actual fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun <T> Array<T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T> {
-    TODO()
+    arrayCopy(this, destination, startIndex, endIndex, destinationIndex)
+//    val rangeSize = endIndex - startIndex
+//    val destinationEndIndex = destinationIndex + rangeSize
+//    AbstractList.checkRangeIndexes(destinationIndex, destinationEndIndex, destination.size)
+//
+//    val subRange = this.copyOfRange(startIndex, endIndex)
+//    subRange.asDynamic().unshift(destinationIndex, rangeSize)
+//
+//    js("Array").prototype.splice.apply(destination, subRange)
+    return destination
 }
 
 @SinceKotlin("1.3")
@@ -742,13 +751,15 @@ public actual fun ShortArray.copyRangeInto(startIndex: Int, endIndex: Int, desti
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun IntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: IntArray, destinationIndex: Int = 0): IntArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Any?>>(), destination.unsafeCast<Array<Any?>>(), startIndex, endIndex, destinationIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun LongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: LongArray, destinationIndex: Int = 0): LongArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Any?>>(), destination.unsafeCast<Array<Any?>>(), startIndex, endIndex, destinationIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")

@@ -5,6 +5,7 @@
 
 package test.collections
 
+import test.assertTypeEquals
 import test.collections.behaviors.*
 import test.comparisons.STRING_CASE_INSENSITIVE_ORDER
 import kotlin.test.*
@@ -788,6 +789,55 @@ class ArraysTest {
         }
     }
 
+
+    @Test fun copyRangeInto() {
+        fun <T> doTest(
+            copyRangeInto: T.(Int, Int, T, Int) -> T,
+            assertTEquals: (T, T, String) -> Unit,
+            toStringT: T.() -> String,
+            dest: T, newValues: T,
+            result1: T, result2: T, result3: T
+        ) {
+            newValues.copyRangeInto(1, 3, dest, 0)
+            assertTypeEquals(result1, dest)
+            assertTEquals(result1, dest, "Copying from newValues: ${result1.toStringT()}, ${dest.toStringT()}")
+
+            dest.copyRangeInto(1, 3, dest, 0)
+            assertTEquals(result2, dest, "Overlapping backward copy: ${result2.toStringT()}, ${dest.toStringT()}")
+
+            dest.copyRangeInto(0, 2, dest, 1)
+            assertTEquals(result3, dest, "Overlapping forward copy: ${result2.toStringT()}, ${dest.toStringT()}")
+        }
+
+        doTest(
+            Array<*>::copyRangeInto, ::assertArrayNotSameButEquals, Array<*>::contentToString,
+            arrayOf("a", "b", "c"), arrayOf("e", "f", "g"),
+            arrayOf("f", "g", "c"), arrayOf("g", "c", "c"), arrayOf("g", "g", "c")
+        )
+
+
+        doTest(
+            IntArray::copyRangeInto, ::assertArrayNotSameButEquals, IntArray::contentToString,
+            intArrayOf(1, 2, 3), intArrayOf(4, 5, 6),
+            intArrayOf(5, 6, 3), intArrayOf(6, 3, 3), intArrayOf(6, 6, 3)
+        )
+
+        doTest(
+            LongArray::copyRangeInto, ::assertArrayNotSameButEquals, LongArray::contentToString,
+            longArrayOf(1, 2, 3), longArrayOf(4, 5, 6),
+            longArrayOf(5, 6, 3), longArrayOf(6, 3, 3), longArrayOf(6, 6, 3)
+        )
+    }
+
+    @Test fun copyRangeIntoVarianceTest() {
+
+        // variance test
+        val sourceArr = arrayOf(1, 2, 3)
+        val targetArr = arrayOfNulls<Any?>(3)
+        val targetArrProjection: Array<in Number> = targetArr
+
+        sourceArr.copyRangeInto(0, sourceArr.size, targetArrProjection)
+    }
 
 
     @Test fun reduceIndexed() {
