@@ -5574,7 +5574,7 @@ public expect fun CharArray.contentToString(): String
 
 @SinceKotlin("1.3")
 @kotlin.internal.InlineOnly
-public inline fun <T> Array<T>.copyInto(destination: Array<T>, destinationIndex: Int = 0): Array<T> {
+public inline fun <T> Array<out T>.copyInto(destination: Array<T>, destinationIndex: Int = 0): Array<T> {
     return copyRangeInto(0, size, destination, destinationIndex)
 }
 
@@ -5864,7 +5864,7 @@ public expect fun BooleanArray.copyOfRange(fromIndex: Int, toIndex: Int): Boolea
 public expect fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
 
 @SinceKotlin("1.3")
-public expect fun <T> Array<out T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<in T>, destinationIndex: Int = 0): Array<T>
+public expect fun <T> Array<out T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T>
 
 @SinceKotlin("1.3")
 public expect fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray

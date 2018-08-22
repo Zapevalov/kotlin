@@ -723,67 +723,65 @@ public actual fun CharArray.copyOfRange(fromIndex: Int, toIndex: Int): CharArray
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
-public actual fun <T> Array<T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T> {
-    arrayCopy(this, destination, startIndex, endIndex, destinationIndex)
-//    val rangeSize = endIndex - startIndex
-//    val destinationEndIndex = destinationIndex + rangeSize
-//    AbstractList.checkRangeIndexes(destinationIndex, destinationEndIndex, destination.size)
-//
-//    val subRange = this.copyOfRange(startIndex, endIndex)
-//    subRange.asDynamic().unshift(destinationIndex, rangeSize)
-//
-//    js("Array").prototype.splice.apply(destination, subRange)
+public actual fun <T> Array<out T>.copyRangeInto(startIndex: Int, endIndex: Int, destination: Array<T>, destinationIndex: Int = 0): Array<T> {
+    arrayCopy(this, destination, destinationIndex, startIndex, endIndex)
     return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun ByteArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ByteArray, destinationIndex: Int = 0): ByteArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Byte>>(), destination.unsafeCast<Array<Byte>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun ShortArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: ShortArray, destinationIndex: Int = 0): ShortArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Short>>(), destination.unsafeCast<Array<Short>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun IntArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: IntArray, destinationIndex: Int = 0): IntArray {
-    arrayCopy(this.unsafeCast<Array<Any?>>(), destination.unsafeCast<Array<Any?>>(), startIndex, endIndex, destinationIndex)
+    arrayCopy(this.unsafeCast<Array<Int>>(), destination.unsafeCast<Array<Int>>(), destinationIndex, startIndex, endIndex)
     return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun LongArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: LongArray, destinationIndex: Int = 0): LongArray {
-    arrayCopy(this.unsafeCast<Array<Any?>>(), destination.unsafeCast<Array<Any?>>(), startIndex, endIndex, destinationIndex)
+    arrayCopy(this.unsafeCast<Array<Long>>(), destination.unsafeCast<Array<Long>>(), destinationIndex, startIndex, endIndex)
     return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun FloatArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: FloatArray, destinationIndex: Int = 0): FloatArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Float>>(), destination.unsafeCast<Array<Float>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun DoubleArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: DoubleArray, destinationIndex: Int = 0): DoubleArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Double>>(), destination.unsafeCast<Array<Double>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun BooleanArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: BooleanArray, destinationIndex: Int = 0): BooleanArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Boolean>>(), destination.unsafeCast<Array<Boolean>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 @SinceKotlin("1.3")
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual fun CharArray.copyRangeInto(startIndex: Int, endIndex: Int, destination: CharArray, destinationIndex: Int = 0): CharArray {
-    TODO()
+    arrayCopy(this.unsafeCast<Array<Char>>(), destination.unsafeCast<Array<Char>>(), destinationIndex, startIndex, endIndex)
+    return destination
 }
 
 /**

@@ -5,6 +5,7 @@
 
 package test.collections
 
+import test.assertStaticTypeIs
 import test.assertTypeEquals
 import test.collections.behaviors.*
 import test.comparisons.STRING_CASE_INSENSITIVE_ORDER
@@ -807,14 +808,23 @@ class ArraysTest {
 
             dest.copyRangeInto(0, 2, dest, 1)
             assertTEquals(result3, dest, "Overlapping forward copy: ${result2.toStringT()}, ${dest.toStringT()}")
+
+            for ((start, end) in listOf(-1 to 0, 0 to 4, 4 to 4, 1 to 0)) {
+                val bounds = "start: $start, end: $end"
+//                val exClass = if (start > end) IllegalArgumentException::class else IndexOutOfBoundsException::class
+                val exClass = RuntimeException::class
+                assertFailsWith(exClass, bounds) { newValues.copyRangeInto(start, end, dest, 0) }
+            }
+            for (destIndex in listOf(-1, 2, 4)) {
+                assertFailsWith<IndexOutOfBoundsException>("index: $destIndex") { newValues.copyRangeInto(0, 2, dest, destIndex) }
+            }
         }
 
         doTest(
-            Array<*>::copyRangeInto, ::assertArrayNotSameButEquals, Array<*>::contentToString,
+            Array<String>::copyRangeInto, { e, a, msg -> assertArrayNotSameButEquals(e, a, msg) }, Array<*>::contentToString,
             arrayOf("a", "b", "c"), arrayOf("e", "f", "g"),
             arrayOf("f", "g", "c"), arrayOf("g", "c", "c"), arrayOf("g", "g", "c")
         )
-
 
         doTest(
             IntArray::copyRangeInto, ::assertArrayNotSameButEquals, IntArray::contentToString,
@@ -827,18 +837,62 @@ class ArraysTest {
             longArrayOf(1, 2, 3), longArrayOf(4, 5, 6),
             longArrayOf(5, 6, 3), longArrayOf(6, 3, 3), longArrayOf(6, 6, 3)
         )
+
+        doTest(
+            ByteArray::copyRangeInto, ::assertArrayNotSameButEquals, ByteArray::contentToString,
+            byteArrayOf(1, 2, 3), byteArrayOf(4, 5, 6),
+            byteArrayOf(5, 6, 3), byteArrayOf(6, 3, 3), byteArrayOf(6, 6, 3)
+        )
+        
+        doTest(
+            CharArray::copyRangeInto, ::assertArrayNotSameButEquals, CharArray::contentToString,
+            charArrayOf('a', 'b', 'c'), charArrayOf('e', 'f', 'g'),
+            charArrayOf('f', 'g', 'c'), charArrayOf('g', 'c', 'c'), charArrayOf('g', 'g', 'c')
+        )
+        
+        doTest(
+            UIntArray::copyRangeInto, { e, a, msg -> assertTrue(e contentEquals a, msg) }, UIntArray::contentToString,
+            uintArrayOf(1, 2, 3), uintArrayOf(4, 5, 6),
+            uintArrayOf(5, 6, 3), uintArrayOf(6, 3, 3), uintArrayOf(6, 6, 3)
+        )
+
+        doTest(
+            ULongArray::copyRangeInto, { e, a, msg -> assertTrue(e contentEquals a, msg) }, ULongArray::contentToString,
+            ulongArrayOf(1, 2, 3), ulongArrayOf(4, 5, 6),
+            ulongArrayOf(5, 6, 3), ulongArrayOf(6, 3, 3), ulongArrayOf(6, 6, 3)
+        )
+
+        doTest(
+            UByteArray::copyRangeInto, { e, a, msg -> assertTrue(e contentEquals a, msg) }, UByteArray::contentToString,
+            ubyteArrayOf(1, 2, 3), ubyteArrayOf(4, 5, 6),
+            ubyteArrayOf(5, 6, 3), ubyteArrayOf(6, 3, 3), ubyteArrayOf(6, 6, 3)
+        )
     }
 
     @Test fun copyRangeIntoVarianceTest() {
+        val sourceArr: Array<out Int> = arrayOf(1, 2, 3)
+        val targetAnyArr: Array<Any?> = arrayOfNulls<Any?>(3)
+        val targetNumberArr: Array<Number> = Array<Number>(3) { 0.0 }
+        val targetArrProjection: Array<in Number> = targetNumberArr
 
-        // variance test
-        val sourceArr = arrayOf(1, 2, 3)
-        val targetArr = arrayOfNulls<Any?>(3)
-        val targetArrProjection: Array<in Number> = targetArr
+        val r1 = sourceArr.copyRangeInto(0, sourceArr.size, targetAnyArr)
+        assertStaticTypeIs<Array<Any?>>(r1)
 
-        sourceArr.copyRangeInto(0, sourceArr.size, targetArrProjection)
+        val r2 = sourceArr.copyRangeInto(0, sourceArr.size, targetNumberArr)
+        assertStaticTypeIs<Array<Number>>(r2)
+
+        val r3 = sourceArr.copyRangeInto(0, sourceArr.size, targetArrProjection)
+        assertStaticTypeIs<Array<in Number>>(r3)
+
+        val c1 = sourceArr.copyInto(targetAnyArr)
+        assertStaticTypeIs<Array<Any?>>(c1)
+
+        val c2 = sourceArr.copyInto(targetNumberArr)
+        assertStaticTypeIs<Array<Number>>(c2)
+
+        val c3 = sourceArr.copyInto(targetArrProjection)
+        assertStaticTypeIs<Array<in Number>>(c3)
     }
-
 
     @Test fun reduceIndexed() {
         expect(-1) { intArrayOf(1, 2, 3).reduceIndexed { index, a, b -> index + a - b } }

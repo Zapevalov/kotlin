@@ -471,6 +471,9 @@ object ArrayOps : TemplateGroupBase() {
         since("1.3")
         returns("SELF")
         inlineOnly()
+        specialFor(InvariantArraysOfObjects) {
+            receiver("Array<out T>")
+        }
         body {
             "return copyRangeInto(0, size, destination, destinationIndex)"
         }
@@ -489,6 +492,9 @@ object ArrayOps : TemplateGroupBase() {
             }
         }
         specialFor(ArraysOfPrimitives, InvariantArraysOfObjects) {
+            specialFor(InvariantArraysOfObjects) {
+                receiver("Array<out T>")
+            }
             on(Platform.JVM) {
                 suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
                 body {
@@ -500,8 +506,12 @@ object ArrayOps : TemplateGroupBase() {
             }
             on(Platform.JS) {
                 suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+                val cast = ".unsafeCast<Array<$primitive>>()".takeIf { family == ArraysOfPrimitives } ?: ""
                 body {
-                    "TODO()"
+                    """
+                    arrayCopy(this$cast, destination$cast, destinationIndex, startIndex, endIndex)
+                    return destination
+                    """
                 }
             }
         }
